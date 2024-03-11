@@ -15,5 +15,11 @@ public class SelectDropDownPage extends BasePage{
         click(option);
         return new SelectDropDownPage(driver);
     }
+
+    public boolean isOptionSelected(String optionText) {
+
+        String selectedOptionText = option.getText();
+        return selectedOptionText.equals(optionText);
+    }
 }
 

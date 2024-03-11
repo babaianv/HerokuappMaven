@@ -36,5 +36,6 @@ public class RedirectLinkPage extends BasePage{
         click(statusCode500);
         return new RedirectLinkPage(driver);
     }
+
 }
 
