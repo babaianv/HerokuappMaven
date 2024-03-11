@@ -25,5 +25,35 @@ public class HomePage extends BasePage {
         return this;
     }
 
+    @FindBy(css = "[href='/dropdown']")
+    WebElement  dropdownLink ;
+    public HomePage findAndOpenDropdownLink() {
+        click(dropdownLink);
+        return this;
+    }
+
+    @FindBy(id = "dropdown")
+    WebElement dropdown;
+    public HomePage getSelectMenu() {
+        click(dropdown);
+        return this;
+    }
+
+    @FindBy(css = "[href='/redirector']")
+    WebElement redirectorLink ;
+    public HomePage findAndOpenRedirectLink() {
+        click(redirectorLink);
+        return this;
+    }
+
+
+    @FindBy(id = "redirect")
+    WebElement redirectTriggerLink ;
+    public HomePage clickTriggerRedirectLink() {
+        click(redirectTriggerLink);
+        return this;
+    }
+
+
 }
 
