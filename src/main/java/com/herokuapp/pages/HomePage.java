@@ -18,6 +18,7 @@ public class HomePage extends BasePage {
         return this;
     }
 
+    ////////////////////////////////////////////
     @FindBy(xpath = "//a[contains(@href, '/windows')]")
     WebElement multipleWindowsLink;
     public HomePage findAndOpenMultipleWindowsLink() {
@@ -25,34 +26,23 @@ public class HomePage extends BasePage {
         return this;
     }
 
+    /////////////////////////////////////////////
     @FindBy(css = "[href='/dropdown']")
     WebElement  dropdownLink ;
-    public HomePage findAndOpenDropdownLink() {
+    public SelectDropDownPage findAndOpenDropdownLink() {
         click(dropdownLink);
-        return this;
+        return new SelectDropDownPage(driver);
     }
 
-    @FindBy(id = "dropdown")
-    WebElement dropdown;
-    public HomePage getSelectMenu() {
-        click(dropdown);
-        return this;
-    }
-
+   ///////////////////////////////////////////
     @FindBy(css = "[href='/redirector']")
     WebElement redirectorLink ;
-    public HomePage findAndOpenRedirectLink() {
+    public RedirectLinkPage findAndOpenRedirectLink() {
         click(redirectorLink);
-        return this;
+        return new RedirectLinkPage(driver);
     }
 
 
-    @FindBy(id = "redirect")
-    WebElement redirectTriggerLink ;
-    public HomePage clickTriggerRedirectLink() {
-        click(redirectTriggerLink);
-        return this;
-    }
 
 
 }

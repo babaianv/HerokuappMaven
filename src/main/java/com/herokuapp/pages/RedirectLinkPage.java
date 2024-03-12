@@ -4,38 +4,49 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+
 public class RedirectLinkPage extends BasePage{
     public RedirectLinkPage(WebDriver driver) {
         super(driver);
     }
+    
 
-    @FindBy(css = "[href='status_codes/200']")
-    WebElement statusCode200;
-    public RedirectLinkPage get200Link() {
-        click(statusCode200);
+    @FindBy(id = "redirect")
+    WebElement redirectTriggerLink ;
+    public RedirectLinkPage clickTriggerRedirectLink() {
+        click(redirectTriggerLink);
         return new RedirectLinkPage(driver);
     }
 
-    @FindBy(css = "[href='status_codes/301']")
-    WebElement statusCode301;
-    public RedirectLinkPage get301Link() {
-        click(statusCode301);
-        return new RedirectLinkPage(driver);
+    @FindBy(css = "a")
+    List<WebElement> allLinks;
+    public RedirectLinkPage getStatusCode() {
+        for (int i = 0; i < allLinks.size(); i++) {
+            WebElement element = allLinks.get(i);
+            String url = element.getAttribute("href");
+            verifyLinks(url);
+        }
+        return this;
     }
 
-    @FindBy(css = "[href='status_codes/404']")
-    WebElement statusCode404;
-    public RedirectLinkPage get404Link() {
-        click(statusCode404);
-        return new RedirectLinkPage(driver);
-    }
+    public void verifyLinks(String url) {
+        try {
+            URL linkUrl = new URL(url);
 
-    @FindBy(css = "[href='status_codes/500']")
-    WebElement statusCode500;
-    public RedirectLinkPage get500Link() {
-        click(statusCode500);
-        return new RedirectLinkPage(driver);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) linkUrl.openConnection();
+            httpURLConnection.setConnectTimeout(5000);
+            httpURLConnection.connect();
+            if (httpURLConnection.getResponseCode() >= 400) {
+                System.out.println(url + " - " + httpURLConnection.getResponseMessage() + " is broken link");
+            } else {
+                System.out.println(url + " - " + httpURLConnection.getResponseMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(url + " - " + e.getMessage() + " link with exception");
+        }
     }
-
 }
 

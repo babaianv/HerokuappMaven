@@ -11,14 +11,19 @@ public class SelectDropdownLinkTests extends TestBase{
     @BeforeMethod
     public void precondition(){
         new HomePage(driver).findAndOpenDropdownLink();
-        new HomePage(driver).getSelectMenu();
     }
 
     @Test
-    public void selectOptionTest(){
+    public void selectOption(){
         SelectDropDownPage selectDropDownPage = new SelectDropDownPage(driver);
-        selectDropDownPage.selectOption();
-        Assert.assertTrue(selectDropDownPage.isOptionSelected("Option 2"), "Option 1 is not selected");
+        selectDropDownPage.selectOption("Option 1");
+
+        String selectedOption = selectDropDownPage.getSelectedOption();
+        Assert.assertEquals(selectedOption, "Option 1", "The selected option is not expected");
     }
+
+
+
+
 }
 
